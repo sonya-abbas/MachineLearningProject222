@@ -56,11 +56,11 @@ names(ds_train_dumm[,highlyCorDescr])
 
 ```
 ##  [1] "accel_belt_z"      "roll_belt"         "accel_belt_y"     
-##  [4] "total_accel_belt"  "accel_dumbbell_z"  "accel_belt_x"     
-##  [7] "pitch_belt"        "magnet_dumbbell_x" "accel_dumbbell_y" 
-## [10] "magnet_dumbbell_y" "accel_dumbbell_x"  "accel_arm_x"      
-## [13] "accel_arm_z"       "magnet_arm_y"      "magnet_belt_z"    
-## [16] "accel_forearm_y"   "gyros_forearm_y"   "gyros_dumbbell_x" 
+##  [4] "accel_arm_y"       "total_accel_belt"  "accel_dumbbell_z" 
+##  [7] "accel_belt_x"      "pitch_belt"        "magnet_dumbbell_x"
+## [10] "accel_dumbbell_y"  "magnet_dumbbell_y" "accel_dumbbell_x" 
+## [13] "accel_arm_x"       "accel_arm_z"       "magnet_arm_y"     
+## [16] "magnet_belt_z"     "accel_forearm_y"   "gyros_forearm_z"  
 ## [19] "gyros_dumbbell_z"  "gyros_arm_x"       "new_window.yes"
 ```
 Figure2 below shows examples of correlated variables.
@@ -86,56 +86,56 @@ results below shows the mins values of predictors before and after centering and
 
 ```
 ##  new_window.no        num_window         yaw_belt        
-##  "Min.   :0.0000  " "Min.   :  1.0  " "Min.   :-179.00  "
-##   gyros_belt_x          gyros_belt_y         gyros_belt_z      
-##  "Min.   :-1.000000  " "Min.   :-0.64000  " "Min.   :-1.4600  "
-##  magnet_belt_x      magnet_belt_y        roll_arm       
-##  "Min.   :-52.00  " "Min.   :354.0  " "Min.   :-180.0  "
+##  "Min.   :0.0000  " "Min.   :  1.0  " "Min.   :-180.00  "
+##   gyros_belt_x         gyros_belt_y         gyros_belt_z      
+##  "Min.   :-1.04000  " "Min.   :-0.64000  " "Min.   :-1.4600  "
+##  magnet_belt_x      magnet_belt_y        roll_arm        
+##  "Min.   :-52.00  " "Min.   :354.0  " "Min.   :-180.00  "
 ##    pitch_arm            yaw_arm            total_accel_arm  
 ##  "Min.   :-88.800  " "Min.   :-180.0000  " "Min.   : 1.00  "
-##   gyros_arm_y         gyros_arm_z         accel_arm_y       
-##  "Min.   :-3.4400  " "Min.   :-2.1700  " "Min.   :-318.00  "
-##   magnet_arm_x       magnet_arm_z      roll_dumbbell      
-##  "Min.   :-584.0  " "Min.   :-597.0  " "Min.   :-153.71  "
-##  pitch_dumbbell       yaw_dumbbell        total_accel_dumbbell
-##  "Min.   :-149.59  " "Min.   :-150.871  " "Min.   : 0.0  "    
-##  gyros_dumbbell_y     magnet_dumbbell_z    roll_forearm       
-##  "Min.   :-2.10000  " "Min.   :-262.00  " "Min.   :-180.000  "
+##   gyros_arm_y         gyros_arm_z        magnet_arm_x     
+##  "Min.   :-3.4400  " "Min.   :-2.330  " "Min.   :-584.0  "
+##   magnet_arm_z    roll_dumbbell       pitch_dumbbell     
+##  "Min.   :-596  " "Min.   :-153.51  " "Min.   :-149.59  "
+##   yaw_dumbbell        total_accel_dumbbell gyros_dumbbell_x     
+##  "Min.   :-150.871  " "Min.   : 0.00  "    "Min.   :-204.0000  "
+##  gyros_dumbbell_y     magnet_dumbbell_z    roll_forearm      
+##  "Min.   :-2.10000  " "Min.   :-262.00  " "Min.   :-180.00  "
 ##  pitch_forearm       yaw_forearm        total_accel_forearm
 ##  "Min.   :-72.50  " "Min.   :-180.00  " "Min.   :  0.00  " 
-##  gyros_forearm_x      gyros_forearm_z      accel_forearm_x    
-##  "Min.   :-22.0000  " "Min.   : -8.0900  " "Min.   :-498.00  "
-##  accel_forearm_z     magnet_forearm_x    magnet_forearm_y  
-##  "Min.   :-446.00  " "Min.   :-1280.0  " "Min.   :-896.0  "
+##  gyros_forearm_x      gyros_forearm_y       accel_forearm_x    
+##  "Min.   :-22.0000  " "Min.   : -7.02000  " "Min.   :-496.00  "
+##  accel_forearm_z    magnet_forearm_x    magnet_forearm_y  
+##  "Min.   :-446.0  " "Min.   :-1280.0  " "Min.   :-896.0  "
 ##  magnet_forearm_z   classe    
 ##  "Min.   :-973.0  " "A:4464  "
 ```
 
 ```
 ##  new_window.no           num_window             yaw_belt           
-##  "Min.   :-16.59615  " "Min.   :  -16.540  " "Min.   :-2227.8251  "
-##   gyros_belt_x         gyros_belt_y         gyros_belt_z         
-##  "Min.   :-16.6241  " "Min.   :-16.6048  " "Min.   :-16.626350  "
-##  magnet_belt_x        magnet_belt_y           roll_arm           
-##  "Min.   :-573.236  " "Min.   :  -6.110  " "Min.   :-2227.8251  "
+##  "Min.   :-16.54496  " "Min.   :  -16.489  " "Min.   :-2279.1884  "
+##   gyros_belt_x         gyros_belt_y         gyros_belt_z        
+##  "Min.   :-16.5634  " "Min.   :-16.5583  " "Min.   :-16.57618  "
+##  magnet_belt_x        magnet_belt_y           roll_arm          
+##  "Min.   :-589.381  " "Min.   :  -5.982  " "Min.   :-2279.188  "
 ##    pitch_arm               yaw_arm             total_accel_arm     
-##  "Min.   :-1117.9780  " "Min.   :-2240.5527  " "Min.   :-16.5123  "
-##   gyros_arm_y           gyros_arm_z          accel_arm_y         
-##  "Min.   :-37.53160  " "Min.   :-22.3858  " "Min.   :-3551.496  "
-##   magnet_arm_x          magnet_arm_z         roll_dumbbell         
-##  "Min.   :-6809.763  " "Min.   :-7115.225  " "Min.   :-1878.8910  "
-##  pitch_dumbbell          yaw_dumbbell          total_accel_dumbbell
-##  "Min.   :-1126.1074  " "Min.   :-1740.9806  " "Min.   :-16.5682  "
+##  "Min.   :-1124.4869  " "Min.   :-2266.3869  " "Min.   :-16.4613  "
+##   gyros_arm_y           gyros_arm_z          magnet_arm_x        
+##  "Min.   :-34.43334  " "Min.   :-18.5594  " "Min.   :-7233.396  "
+##   magnet_arm_z         roll_dumbbell          pitch_dumbbell        
+##  "Min.   :-7194.991  " "Min.   :-1861.4059  " "Min.   :-1375.2234  "
+##   yaw_dumbbell          total_accel_dumbbell gyros_dumbbell_x     
+##  "Min.   :-1587.2218  " "Min.   :-16.5450  " "Min.   :-311.7912  "
 ##  gyros_dumbbell_y     magnet_dumbbell_z      roll_forearm         
-##  "Min.   :-24.4222  " "Min.   :-2991.481  " "Min.   :-2291.4631  "
+##  "Min.   :-20.2236  " "Min.   :-2880.862  " "Min.   :-2304.7916  "
 ##  pitch_forearm          yaw_forearm           total_accel_forearm 
-##  "Min.   :-885.0628  " "Min.   :-2291.4631  " "Min.   :-16.5682  "
-##  gyros_forearm_x      gyros_forearm_z      accel_forearm_x      
-##  "Min.   :-21.3675  " "Min.   :-33.3315  " "Min.   :-5969.741  "
-##  accel_forearm_z       magnet_forearm_x      magnet_forearm_y      
-##  "Min.   :-4976.988  " "Min.   :-16164.55  " "Min.   :-11200.786  "
+##  "Min.   :-923.5023  " "Min.   :-2291.9900  " "Min.   :-16.5171  "
+##  gyros_forearm_x       gyros_forearm_y      accel_forearm_x      
+##  "Min.   :-106.1853  " "Min.   : -75.910  " "Min.   :-6055.651  "
+##  accel_forearm_z       magnet_forearm_x       magnet_forearm_y      
+##  "Min.   :-4276.233  " "Min.   :-16258.502  " "Min.   :-10856.240  "
 ##  magnet_forearm_z      
-##  "Min.   :-12257.178  "
+##  "Min.   :-12366.825  "
 ```
 
 # Model Tuning
@@ -163,7 +163,7 @@ table(observed = actTest[, 160], predicted = pred)
 Based on previous model tuning, we chose the first model for our predictions as it shows perfect accuracy, lowest error rate and excellent results. However, we decided to do more experement in order to refine this model and consider only important variables. The objectives of this section is to see if we can have high quality model with less variables and also detect and prevent  overfitting if exists as we believed the 20 testing observations might not be enough to reflect the real performace of our model. In order to do so, we have used Cross Validation over random forst, rfcv function.  We have chosed number of k folds first equal to 3 (to avoid waiting long time for getting results) and then k-fold = 10 based on Kohavi study of cross-validation and bootstrap for accuracy estimation and model selection. It shows how choosing high K values (as for leave-one-out) usually results in lower bias, higher variance estimators; using low K values results in higher bias, lower variance estimators. However, as Kohavi showed in the cited article, the number 10 seems to strike a good balance for many problems [1]. As results, both three and ten k folds return similar important variables and performance.
 
 ```r
-#result3 <- rfcv(ds_train_dumm, ds_train_dumm$classe, cv.fold=3) 
+result3 <- rfcv(ds_train_dumm, ds_train_dumm$classe, cv.fold=3) 
 #result10 <- rfcv(ds_train_dumm, ds_train_dumm$classe, cv.fold=10) commented because it takes long time to process
 ```
 
@@ -173,30 +173,14 @@ Based on that we run random forst function again on a subset of our training dat
 
 ```r
 result3$error.cv
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'result3' not found
-```
-
-```r
 with(result3, plot(n.var, error.cv, log="x", type="o", lwd=2))
 ```
 
-```
-## Error in with(result3, plot(n.var, error.cv, log = "x", type = "o", lwd = 2)): object 'result3' not found
-```
+![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png) 
 
 ```r
 #with(result10, plot(n.var, error.cv, log="x", type="o", lwd=2))
 names(ds_train[, result3$n.var])
-```
-
-```
-## Error in `[.data.frame`(ds_train, , result3$n.var): object 'result3' not found
-```
-
-```r
 #names(ds_train[, result10$n.var])
 m1<- randomForest(classe ~ ., data=ds_train_dumm[, c(56, 28, 14, 7, 4 ,1)]) ## k-fold = 3 -10, features selction results from rfcv
 ```

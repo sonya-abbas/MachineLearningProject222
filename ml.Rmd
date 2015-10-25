@@ -4,6 +4,7 @@ install.packages("caret")
 install.packages("pls")
 install.packages("elasticnet")
 install.packages("lars")
+install.packages("psych")
 library("lattice")
 library("ggplot2")
 library("caret")
@@ -12,7 +13,6 @@ library("elasticnet")
 library("lars")
 library("randomForest")
 library("ggplot2")
-install.packages("psych")
 library("psych")
 ```
 
@@ -20,7 +20,7 @@ Practical Machine Learning Project - Measure The Quality Of Tracked Activities
 ================================================================================
 
 # Executive Summary
-The objective of this project is to measure the quality of performing a set of activities done by a group of people. In order to do so, we need to build a predictive model that allow us to predict the class of performance based on a set of indicators/predictors. This report will rake us through all the steps we followes to get a very accurate model that score 100% accuracy when it has been applied on test data (20 cases). more specifically, for each observation, we need to predict if it is (Class A -exactly according to the specification-, Class B -throwing the elbows to the front-, Class C -lifting the dumbbell only halfway-, Class D -lowering the dumbbell only halfway-, Class E -throwing the hips to the front-)
+The objective of this project is to measure the quality of performing a set of activities done by a group of people. In order to do so, we need to build a predictive model that allow us to predict the class of performance based on a set of indicators/predictors. This report will take us through all the steps we have followed to get a very accurate model that scores 100% accuracy when it has been applied on test data (20 cases). More specifically, for each observation, we need to predict if it is (Class A -exactly according to the specification-, Class B -throwing the elbows to the front-, Class C -lifting the dumbbell only halfway-, Class D -lowering the dumbbell only halfway-, Class E -throwing the hips to the front-)
 We use caret, randomForest and ggplot2 packages in order to build a proper predictive model.
 
 # Data Splitting
@@ -39,7 +39,7 @@ actTest  <- ds_train[-trainIndex,]
 # Pre-processing
 
 ## 1- Exploratory Data Analysis:
-As a first of pre-processing, we do some exploratory data analysis to understand the data we have. We apply different functions such as dim, names, str, summary..etc
+As a first step of pre-processing, we do some exploratory data analysis to understand the data we have. We apply different functions such as dim, names, str, summary..etc
 ```{r results='hide', message=FALSE}
 str(ds_train)
 dim(ds_train)
@@ -48,8 +48,7 @@ head(ds_train,1)
 dim(ds_test)
 names(ds_train)
 ```
-The data summery shows a number of columns where there is a big number of NA's and others with a big number of empty values. so we dig more 
-as Figure 1 below shows the distrubution of NA's values per columns. We notice a very high number of NA's for some olumns and we see a clear pattern of NA's values per rows. It is equal (either NA's or empty values) to 15386 from 15699 in trainig dataset portion and 19216/19622 in the original training dataset. 
+The data summery shows a number of columns where there is a big number of NA's and others with a big number of empty values. so we dig more as Figure 1 below shows the distrubution of NA's values per columns. We notice a very high number of NA's for some columns and we see a clear pattern of NA's values per rows. It is equal (either NA's or empty values) to 15386 from 15699 in trainig dataset portion (after pliting) and 19216/19622 in the original training dataset (before spliting). 
 ```{r echo=FALSE, fig.width=7, fig.height=6}
 image(is.na(ds_train), main = "Missing Values", xlab = "Observation", ylab = "Variable", 
       xaxt = "n", yaxt = "n", bty = "n")
@@ -57,7 +56,7 @@ axis(1, seq(0, 1, length.out = nrow(ds_train)), 1:nrow(ds_train), col = "white")
 axis(2, 1:160, names(ds_train), col = "white", las = 2)
 ```
 ## 2- Elimnate Zero- and Near Zero-Variance Predictors
-based on previous analysis, we decide to elimnate Zero- and Near Zero-Variance Predictors and sparse variables using a threshold equal to 15000. (NA's total number of columns = 67) and (empty values totlal number of columns = 33). This lead us to a new dataset where dimensions are (15699, 60)
+Based on previous analysis, we decide to elimnate Zero- and Near Zero-Variance Predictors and sparse variables using a threshold equal to 15000. (NA's total number of columns = 67) and (empty values totlal number of columns = 33). This lead us to a new dataset where dimensions are (15699, 60)
 ```{r results='hide', message=FALSE}
 sum(is.na(actTrain$max_roll_belt))
 ds_trainNonNa<- actTrain[, colSums(is.na(actTrain))<15000]
@@ -72,17 +71,14 @@ ds_train_dumm<- data.frame(predict(dummies, newdata = ds_train_clean))
 ds_train_dumm$classe<- ds_train_clean[,55]
 ```
 ## 4- Identify Correlated Predictors:
-
-We define a threshold for calculating correlations betweeen predictors. Here is a list of predictors names which are coorelated:
+We define a threshold for calculating correlations (0.57) betweeen predictors. Here is a list of predictors names which are coorelated:
 ```{r message=FALSE}
 descrCor <-  cor(ds_train_dumm[, -56])
 highlyCorDescr <- findCorrelation(descrCor, cutoff = .75)
 ds_train_noCor <- ds_train_dumm[,-highlyCorDescr]
-#descrCor2 <- cor(ds_train_noCor[, -35])
-#summary(descrCor2[upper.tri(descrCor2)])
 names(ds_train_dumm[,highlyCorDescr])
 ```
-Figure2 below shows a set of correlated variables.
+Figure2 below shows examples of correlated variables.
 ```{r echo=FALSE, fig.width=7, fig.height=6}
 pairs(~ accel_belt_z+ roll_belt+ accel_belt_y+ accel_arm_y+ total_accel_belt+ accel_dumbbell_z+ accel_belt_x+ pitch_belt + magnet_dumbbell_x
       ##+ accel_dumbbell_y+ magnet_dumbbell_y+ accel_arm_x+ accel_dumbbell_x+ accel_arm_z+ magnet_arm_y+ magnet_belt_z+ accel_forearm_y
@@ -115,6 +111,7 @@ Over the 20 observations of tetsing data, accuracy measures show that first mode
 set.seed(33833)
 m1<- randomForest(classe ~ ., data=ds_train_dumm) 
 m2<- randomForest(classe ~ ., data=ds_train_noCor)
+trainTransformed$classe<- ds_train_clean[,55]
 model<- randomForest(classe ~ ., data=trainTransformed) 
 ## predict values over testing dataset patition (20% of whole dataset)
 actTest$new_window.no<- 0
@@ -125,7 +122,7 @@ table(observed = actTest[, 160], predicted = pred)
 
 # Model Performance
 
-## 1- Feature Selection $ Cross Validation
+## 1- Feature Selection and Cross Validation
 Based on previous model tuning, we chose the first model for our predictions as it shows perfect accuracy, lowest error rate and excellent results. However, we decided to do more experement in order to refine this model and consider only important variables. The objectives of this section is to see if we can have high quality model with less variables and also detect and prevent  overfitting if exists as we believed the 20 testing observations might not be enough to reflect the real performace of our model. In order to do so, we have used Cross Validation over random forst, rfcv function.  We have chosed number of k folds first equal to 3 (to avoid waiting long time for getting results) and then k-fold = 10 based on Kohavi study of cross-validation and bootstrap for accuracy estimation and model selection. It shows how choosing high K values (as for leave-one-out) usually results in lower bias, higher variance estimators; using low K values results in higher bias, lower variance estimators. However, as Kohavi showed in the cited article, the number 10 seems to strike a good balance for many problems [1]. As results, both three and ten k folds return similar important variables and performance.
 ```{r results='hide',message=FALSE}
 result3 <- rfcv(ds_train_dumm, ds_train_dumm$classe, cv.fold=3) 

@@ -88,7 +88,7 @@ pairs(~ accel_belt_z+ roll_belt+ accel_belt_y+ accel_arm_y+ total_accel_belt+ ac
 
 ## 5- Calculate Linear Dependencies:
 We use findLinearCombos function from caret package for linear dependencies uses the QR decomposition of a matrix to enumerate sets of linear combinations. In our dataset, no linear dependeincies exist as results show below.
-```{r echo=FALSE, message=FALSE}
+```{r echo=FALSE, results='hide', message=FALSE}
 findLinearCombos(ds_train_noCor[, -35])
 ```
 
@@ -96,7 +96,7 @@ findLinearCombos(ds_train_noCor[, -35])
 We use preProcess class for centering and scaling predictors. predict function applies centring anf scaling over or datset predictos. 
 results below shows the mins values of predictors before and after centering and scaling: 
 ```{r echo=FALSE,message=FALSE}
-preProcValues <- preProcess(ds_train_noCor[,-35], method = c("center", "scale"))
+preProcValues <- preProcess(ds_train_noCor[,-c(1,2,3,35)], method = c("center", "scale"))
 trainTransformed <- predict(preProcValues, ds_train_noCor[,-35])
 head(summary(ds_train_noCor),1)
 head(summary(trainTransformed),1)
